@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight, User } from "lucide-react";
-import { useState } from "react";
+import { User, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
 
 const doctors = [
   { name: "Dr(a) Aline Balieiro Diniz", specialty: "Córnea", crm: "CRM: 521132229" },
@@ -11,80 +11,85 @@ const doctors = [
 ];
 
 const DoctorsSection = () => {
-  const [page, setPage] = useState(0);
-  const perPage = 3;
-  const totalPages = Math.ceil(doctors.length / perPage);
-  const visible = doctors.slice(page * perPage, page * perPage + perPage);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const amount = 320;
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <section id="equipe" className="section-padding bg-background">
+    <section id="equipe" className="section-padding bg-background overflow-hidden">
       <div className="section-container">
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/15 text-secondary font-display font-bold text-sm">
-            Nossa Equipe
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl font-900 text-foreground leading-tight">
-            Oftalmologistas Especializados
-          </h2>
-          <p className="text-muted-foreground font-body text-base leading-relaxed">
-            Temos oftalmologistas especialistas nas mais diversas áreas, como catarata, córnea, cirurgia refrativa, oculoplástica, retina e glaucoma.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {visible.map((doc, i) => (
-            <article
-              key={`${page}-${i}`}
-              className="bg-card rounded-xl p-6 card-shadow hover:card-shadow-hover transition-all duration-300 flex flex-col items-center text-center space-y-4 animate-fade-in"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center">
-                <User className="w-10 h-10 text-muted-foreground" />
-              </div>
-              <h3 className="font-display text-lg font-800 text-foreground">{doc.name}</h3>
-              <p className="text-secondary font-display font-bold text-sm">{doc.specialty}</p>
-              <p className="text-muted-foreground font-body text-xs">{doc.crm}</p>
-              <a
-                href="#"
-                className="inline-flex items-center px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-display font-bold text-sm hover:brightness-125 transition-all duration-200"
-              >
-                Saiba mais
-              </a>
-            </article>
-          ))}
-        </div>
-
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-4 mt-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="max-w-xl space-y-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/15 text-secondary font-display font-bold text-sm">
+              Nossa Equipe
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-900 text-foreground leading-tight">
+              Oftalmologistas Especializados
+            </h2>
+            <p className="text-muted-foreground font-body text-base leading-relaxed">
+              Temos oftalmologistas especialistas nas mais diversas áreas, como catarata, córnea, cirurgia refrativa, oculoplástica, retina e glaucoma.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
             <button
-              onClick={() => setPage(Math.max(0, page - 1))}
-              disabled={page === 0}
-              className="p-2 rounded-full bg-primary text-primary-foreground disabled:opacity-30 hover:brightness-125 transition-all"
+              onClick={() => scroll("left")}
+              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all flex items-center justify-center"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <div className="flex gap-2">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPage(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${i === page ? "bg-secondary w-6" : "bg-border"}`}
-                  aria-label={`Página ${i + 1}`}
-                />
-              ))}
-            </div>
             <button
-              onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
-              disabled={page === totalPages - 1}
-              className="p-2 rounded-full bg-primary text-primary-foreground disabled:opacity-30 hover:brightness-125 transition-all"
+              onClick={() => scroll("right")}
+              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all flex items-center justify-center"
               aria-label="Próximo"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-        )}
+        </div>
+      </div>
 
+      {/* Full-width horizontal scroll */}
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scrollbar-hide px-4 sm:px-6 lg:px-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] pb-4"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {doctors.map((doc, i) => (
+          <article
+            key={i}
+            className="shrink-0 w-72 bg-card rounded-2xl overflow-hidden card-shadow hover:card-shadow-hover transition-all duration-300 group"
+          >
+            <div className="h-48 bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center relative">
+              <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center border-4 border-card">
+                <User className="w-9 h-9 text-muted-foreground" />
+              </div>
+              <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-secondary text-accent-foreground text-xs font-display font-bold">
+                {doc.specialty}
+              </span>
+            </div>
+            <div className="p-5 space-y-2 text-center">
+              <h3 className="font-display text-base font-800 text-foreground leading-snug">{doc.name}</h3>
+              <p className="text-muted-foreground font-body text-xs">{doc.crm}</p>
+              <a
+                href="#"
+                className="inline-flex items-center gap-1 text-secondary font-display font-bold text-sm mt-2 hover:gap-2 transition-all duration-200"
+              >
+                Saiba mais <ChevronRight className="w-4 h-4" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="section-container">
         <div className="text-center mt-10">
           <a
             href="#equipe-completa"

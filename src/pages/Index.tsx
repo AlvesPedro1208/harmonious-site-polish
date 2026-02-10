@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ConsultaSection from "@/components/ConsultaSection";
-import ServiceCarousel from "@/components/ServiceCarousel";
+import MarketplaceSection from "@/components/MarketplaceSection";
+import CirurgiasSection from "@/components/CirurgiasSection";
 import DoctorsSection from "@/components/DoctorsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
@@ -17,12 +18,12 @@ const exames = [
 ];
 
 const cirurgias = [
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Calázio", description: "Cirurgia para retirada do calázio com técnica minimamente invasiva." },
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Cirurgia de Catarata", description: "Cirurgia que substitui a catarata por uma lente intraocular de alta qualidade." },
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Cirurgia de Pterígio", description: "Cirurgia de exérese de pterígio com técnica moderna e segura." },
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Blefaroplastia", description: "Cirurgia plástica das pálpebras para correção funcional e estética." },
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Cirurgia Refrativa", description: "Correção de miopia, hipermetropia e astigmatismo a laser." },
-  { tag: "cirurgia", tagColor: "secondary" as const, title: "Crosslinking", description: "Tratamento para ceratocone que fortalece a córnea." },
+  { title: "Calázio", description: "Cirurgia para retirada do calázio com técnica minimamente invasiva. O procedimento é realizado com anestesia local e possui recuperação rápida." },
+  { title: "Cirurgia de Catarata", description: "Cirurgia que substitui a catarata por uma lente intraocular de alta qualidade. Utilizamos as técnicas mais modernas com facoemulsificação." },
+  { title: "Cirurgia de Pterígio", description: "Cirurgia de exérese de pterígio com técnica moderna e segura. O procedimento remove o tecido anormal e previne a recorrência." },
+  { title: "Blefaroplastia", description: "Cirurgia plástica das pálpebras para correção funcional e estética. Melhora o campo visual e rejuvenesce a região dos olhos." },
+  { title: "Cirurgia Refrativa", description: "Correção de miopia, hipermetropia e astigmatismo a laser. Procedimento seguro que pode eliminar a dependência de óculos." },
+  { title: "Crosslinking", description: "Tratamento para ceratocone que fortalece a córnea. Utiliza riboflavina e luz ultravioleta para estabilizar a progressão da doença." },
 ];
 
 const Index = () => {
@@ -32,20 +33,8 @@ const Index = () => {
       <main>
         <HeroSection />
         <ConsultaSection />
-        <ServiceCarousel
-          sectionId="exames"
-          badge="Marketplace"
-          title="Marketplace de Exames"
-          subtitle="O marketplace da dr.olho une pacientes a clínicas oftalmológicas de excelência. Pagando pelo nosso site, você garante valores mais vantajosos em até 12x."
-          items={exames}
-        />
-        <ServiceCarousel
-          sectionId="cirurgias"
-          badge="Cirurgias"
-          title="Cirurgias de alta qualidade, preço acessível e pagamento facilitado"
-          subtitle="Cirurgias nos olhos são complexas. Por isso, sempre explicamos passo a passo como funciona cada procedimento. Todos os aparelhos e insumos são de primeira qualidade."
-          items={cirurgias}
-        />
+        <MarketplaceSection items={exames} />
+        <CirurgiasSection items={cirurgias} />
         <DoctorsSection />
         <TestimonialsSection />
         <CTASection />
