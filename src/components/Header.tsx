@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Equipe", href: "#equipe" },
   { label: "Contato", href: "#contato" },
   { label: "Blog", href: "#blog" },
+  { label: "Dashboard", href: "/dashboard" },
 ];
 
 const Header = () => {
