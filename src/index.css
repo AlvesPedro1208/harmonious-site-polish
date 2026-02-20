@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 243 80% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 243 80% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 243 80% 20%;
+
+    --primary: 243 80% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 168 100% 45%;
+    --secondary-foreground: 243 80% 20%;
+
+    --muted: 240 20% 96%;
+    --muted-foreground: 243 30% 50%;
+
+    --accent: 168 100% 45%;
+    --accent-foreground: 243 80% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 20% 90%;
+    --input: 240 20% 90%;
+    --ring: 168 100% 45%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(243 80% 20%) 0%, hsl(243 70% 30%) 50%, hsl(200 80% 25%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(168 100% 40%) 0%, hsl(168 90% 50%) 100%);
+    --gradient-footer: linear-gradient(180deg, hsl(243 80% 20%) 0%, hsl(243 85% 15%) 100%);
+    --shadow-card: 0 4px 24px -4px hsl(243 80% 20% / 0.08);
+    --shadow-card-hover: 0 12px 32px -8px hsl(243 80% 20% / 0.15);
+    --shadow-button: 0 4px 16px -4px hsl(168 100% 45% / 0.4);
+
+    --font-display: 'Nunito', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-cta {
+    background: var(--gradient-cta);
+  }
+
+  .gradient-footer {
+    background: var(--gradient-footer);
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-shadow-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .btn-shadow {
+    box-shadow: var(--shadow-button);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
